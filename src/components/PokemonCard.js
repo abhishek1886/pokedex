@@ -79,7 +79,7 @@ const PokemonCard = (props) => {
           </ul>
         </div>
         <div className="flex justify-center items-center">
-          <img className="w-full p-3 " src={images} />
+          <img className="w-full p-3" src={images} alt={name} width="100%" />
         </div>
         <div className="absolute bottom-0 left-48 font-bold text-xs font-serif float float-right">ID:{id}</div>
       </div>

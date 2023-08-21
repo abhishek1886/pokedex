@@ -6,7 +6,6 @@ import PokemonButton from "./PokemonButton";
 import Welcome from "./Welcome";
 import PokemonCard from "./PokemonCard";
 import { generations } from "../helpers/api";
-import WildPokemon from "./WildPokemon";
 import PokemonContext from "../store/pokemon-context";
 
 const Pokedex = () => {
