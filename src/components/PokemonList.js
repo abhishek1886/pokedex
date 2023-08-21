@@ -9,7 +9,7 @@ const PokemonList = (props) => {
 
   let pokemonList = [];
 
-  if (pokemonCtx.userPokemonList.length > 0) {
+  if (pokemonCtx.userPokemonList.length > 0 ) {
     pokemonList = pokemonCtx.userPokemonList.slice(0, 8).map((pokemon) => (
       <li
         className="w-[50px] flex items-center group flex-col justify-center h-[50px] border border-[#faf139]"
@@ -30,6 +30,9 @@ const PokemonList = (props) => {
         
       </li>
     ));
+    if(!authCtx.isLoggedIn){
+      pokemonList = [];
+    }
   }
 
   return (

@@ -6,7 +6,7 @@ const PokemonContext = createContext({
   userPokemonList: [],
   addUserPokemon: (pokemon) => {},
   removeUserPokemon: (id) => {},
-  isDataFetched: null
+  isDataFetched: null,
 });
 
 export const PokemonContextProvider = (props) => {
@@ -19,14 +19,20 @@ export const PokemonContextProvider = (props) => {
   };
 
   const addUserPokemon = (pokemon) => {
+    setIsDataFetched(true);
     setUserPokemonList((prev) => [pokemon, ...prev]);
   };
 
   const removeUserPokemon = (id) => {
-    const updatedList = userPokemonList.filter(pokemon => pokemon._id !== id);
-    setUserPokemonList(updatedList);
-    setIsDataFetched(true);
-  }
+    if (id === "all") {
+      setUserPokemonList([]);
+    } else {
+      const updatedList = userPokemonList.filter(
+        (pokemon) => pokemon._id !== id
+      );
+      setUserPokemonList(updatedList);
+    }
+  };
 
   const value = {
     globalPokemonList,
@@ -34,7 +40,7 @@ export const PokemonContextProvider = (props) => {
     userPokemonList,
     addUserPokemon,
     removeUserPokemon,
-    isDataFetched
+    isDataFetched,
   };
   return (
     <PokemonContext.Provider value={value}>

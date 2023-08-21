@@ -130,7 +130,7 @@ const SignUp = () => {
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={formInputHandler}
-              placeholder="password"
+              placeholder="confirm password"
               className="block w-full py-3 px-1 mt-2 mb-4
                     text-gray-800 appearance-none 
                     border-b-2 border-gray-100
@@ -148,17 +148,17 @@ const SignUp = () => {
             </button>
 
             <div className="sm:flex sm:flex-wrap mt-8 sm:mb-4 text-sm text-center">
-              <a href="#" className="flex-2 underline">
+              <Link to='/forgotpassword' className="flex-2 underline">
                 Forgot password?
-              </a>
+              </Link>
 
               <p className="flex-1 text-gray-500 text-md mx-4 my-1 sm:my-auto">
                 or
               </p>
 
-              <a href="#" className="flex-2 underline">
+              <Link to='/login' className="flex-2 underline">
                 Login
-              </a>
+              </Link>
             </div>
           </form>
         </div>

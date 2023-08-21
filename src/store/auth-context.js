@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
+import PokemonContext from "./pokemon-context";
 
 const AuthContext = createContext({
   isLoggedIn: null,
@@ -12,7 +13,7 @@ export const AuthContextProvider = (props) => {
   const [email, setEmail] = useState("");
   const [token, setToken] = useState("");
   const [isLoggedin, setIsLoggedin] = useState(false);
-
+  const pokemocCtx = useContext(PokemonContext);
   const login = ({ email, token }) => {
     setEmail(email);
     setEmail(token);
@@ -26,6 +27,7 @@ export const AuthContextProvider = (props) => {
     setToken("");
     setEmail("");
     setIsLoggedin(false);
+    pokemocCtx.removeUserPokemon('all');
 
     localStorage.removeItem("token");
     localStorage.removeItem("email");

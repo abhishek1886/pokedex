@@ -1,10 +1,13 @@
 import React, { useContext } from "react";
+
 import PokemonContext from "../store/pokemon-context";
 import { TiDeleteOutline } from "react-icons/ti";
 import axios from "axios";
+import AuthContext from "../store/auth-context";
 
 const FullPokemonList = (props) => {
   const pokemocCtx = useContext(PokemonContext);
+  const authCtx = useContext(AuthContext);
 
   const deleteHandler = async (id) => {
     pokemocCtx.removeUserPokemon(id);
@@ -30,9 +33,12 @@ const FullPokemonList = (props) => {
           />
         </li>
         <p className="text-center font-serif">{pokemon.nickName}</p>
-        <TiDeleteOutline className=" hidden absolute group-hover:block hover:cursor-pointer text-xl text-[#ff0f0f] top-0 right-2" onClick={() => deleteHandler(pokemon._id)} />
+        <TiDeleteOutline className=" hidden absolute group-hover:block hover:cursor-pointer text-xl text-[#ff0f0f] top-0 right-4 md:right-2" onClick={() => deleteHandler(pokemon._id)} />
       </div>
     ));
+  }
+  if(!authCtx.isLoggedIn){
+    fullList = [];
   }
   return (
     <div className="h-[500px] m-3 mt-12 rounded-2xl border overflow-scroll border-black p-3 bg-[#f1f5e6]">
