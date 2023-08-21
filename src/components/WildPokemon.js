@@ -3,27 +3,31 @@ import axios from "axios";
 
 import PokemonContext from "../store/pokemon-context";
 import PokemonModal from "./PokemonModal";
+import AuthContext from "../store/auth-context";
 
 const WildPokemon = () => {
   const pokemonCtx = useContext(PokemonContext);
   const [display, setDisplay] = useState(false);
   const [pokemon, setPokemon] = useState({});
   const [modalDisplay, setModalDisplay] = useState(false);
-
+  const [timeoutID, setTimeOutID] = useState('')
+  const authCtx = useContext(AuthContext);
+  const isLoggedIn = authCtx.isLoggedIn;
   useEffect(() => {
-    const delay = Math.floor(Math.random() * 20) + 10;
-
+    const delay = Math.floor(Math.random() * 30) + 10;
     const timeoutID = setInterval(() => {
-      setDisplay(true);
-      setTimeout(() => {
-        setDisplay(false);
-      }, 5000);
+      if (isLoggedIn) {
+        setDisplay(true);
+        setTimeout(() => {
+          setDisplay(false);
+        }, 5000);
+      }
     }, delay * 1000);
 
     return () => {
       clearInterval(timeoutID);
     };
-  }, []);
+  }, [isLoggedIn]);
 
   const grassClickHandler = async () => {
     setDisplay(false);

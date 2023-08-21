@@ -4,12 +4,15 @@ const PokemonContext = createContext({
   globalPokemonList: [],
   addGlobalPokemons: (data) => {},
   userPokemonList: [],
-  addUserPokemon: (pokemon) => {}
+  addUserPokemon: (pokemon) => {},
+  removeUserPokemon: (id) => {},
+  isDataFetched: null
 });
 
 export const PokemonContextProvider = (props) => {
   const [globalPokemonList, setGlobalPokemonList] = useState([]);
   const [userPokemonList, setUserPokemonList] = useState([]);
+  const [isDataFetched, setIsDataFetched] = useState(false);
 
   const addGlobalPokemons = (data) => {
     setGlobalPokemonList(data);
@@ -19,11 +22,19 @@ export const PokemonContextProvider = (props) => {
     setUserPokemonList((prev) => [pokemon, ...prev]);
   };
 
+  const removeUserPokemon = (id) => {
+    const updatedList = userPokemonList.filter(pokemon => pokemon._id !== id);
+    setUserPokemonList(updatedList);
+    setIsDataFetched(true);
+  }
+
   const value = {
     globalPokemonList,
     addGlobalPokemons,
     userPokemonList,
-    addUserPokemon
+    addUserPokemon,
+    removeUserPokemon,
+    isDataFetched
   };
   return (
     <PokemonContext.Provider value={value}>

@@ -1,6 +1,6 @@
 import React, { Fragment, useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { AiOutlineHome } from 'react-icons/ai';
+import { AiOutlineHome } from "react-icons/ai";
 
 import GenerationButtons from "./GenerationButtons";
 import PokemonButton from "./PokemonButton";
@@ -10,6 +10,7 @@ import { generations } from "../helpers/api";
 import PokemonContext from "../store/pokemon-context";
 import PokemonList from "./PokemonList";
 import FullPokemonList from "./FullPokemonList";
+import AuthContext from "../store/auth-context";
 
 const Pokedex = () => {
   const [pokemons, setPokemons] = useState([]);
@@ -27,10 +28,11 @@ const Pokedex = () => {
     types: [],
   });
   const pokemonCtx = useContext(PokemonContext);
+  const authCtx = useContext(AuthContext);
+  const isLoggedIn = authCtx.isLoggedIn;
 
   const getPokemon = async (gen) => {
     const response = await axios.get(generations[gen]);
-    console.log(response);
     setPokemons(response.data.results);
     pokemonCtx.addGlobalPokemons(response.data.results);
   };
@@ -61,7 +63,6 @@ const Pokedex = () => {
       nickName: pokemon.nickName,
     });
     setDisplayCard(true);
-    
   };
 
   useEffect(() => {
@@ -69,27 +70,43 @@ const Pokedex = () => {
       const response = await axios.get(generations["gen1"]);
       setPokemons(response.data.results);
       pokemonCtx.addGlobalPokemons(response.data.results);
+      if (isLoggedIn) {
+        const email = localStorage.getItem('email').replace(/[@.]/g, '');
+
+        const res = await axios.get(`https://mail-box-client-a8037-default-rtdb.firebaseio.com/poke${email}.json`);
+        if(res.data){
+          Object.entries(res.data).map(([key, value]) => {
+          pokemonCtx.addUserPokemon({
+            ...value,
+            _id: key
+          })
+        })
+        }
+        
+      }
     };
     getPokemonData();
-  }, []);
+  }, [isLoggedIn]);
 
   const showHomeHandler = () => {
     setShowAll(false);
     setDisplayCard(false);
-  }
+  };
 
   const showAllHandler = () => {
     setShowAll(true);
     setShowHome(false);
-    setDisplayCard(false)
-  }
+    setDisplayCard(false);
+  };
 
   return (
     <Fragment>
       <div className="relative">
         <div className="flex flex-row items-center justify-center">
           <div
-            className={`bg-[#ff0050] h-[600px] w-[300px] rounded-50 md:rounded-l-50 md:rounded-r-none flex flex-col border border-r-[2px] border-black ${showHome ? 'z-40' : 'z-30'} md:z-40`}
+            className={`bg-[#ff0050] h-[600px] w-[300px] rounded-50 md:rounded-l-50 md:rounded-r-none flex flex-col border border-r-[2px] border-black ${
+              showHome ? "z-40" : "z-30"
+            } md:z-40`}
             style={{ boxShadow: "5px 0 10px -2px #4f045a" }}
           >
             <GenerationButtons onClick={getPokemon} />
@@ -102,7 +119,6 @@ const Pokedex = () => {
             <div
               className="border-2 border-black border-t-0 h-[500px] mx-4 shadow-inner"
               style={{ boxShadow: "inset 0 0 7px #4f045a" }}
-              
             >
               <div className="h-[300px] mx-[15px] mt-[30px] bg-[#f1f5e6] border border-black rounded-xl">
                 <div className="h-10 text-center mt-3 ">
@@ -110,7 +126,7 @@ const Pokedex = () => {
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="bg-[#f1f5e6] relative border-b-2 border-black"
                     placeholder="Search.."
-                    style={{zIndex: 170}}
+                    style={{ zIndex: 170 }}
                   />
                 </div>
                 <div
@@ -118,7 +134,6 @@ const Pokedex = () => {
                   style={{
                     background: `repeating-linear-gradient(45deg, #14daff, #14daff 60px, #14eaff 60px, #14eaff 120px)`,
                   }}
-
                 >
                   {filteredPokemon(pokemons, searchQuery).length !== 0 ? (
                     filteredPokemon(pokemons, searchQuery).map((pokemon) => (
@@ -137,9 +152,19 @@ const Pokedex = () => {
               <PokemonList onClick={renderCard} onShowAll={showAllHandler} />
             </div>
           </div>
-          <div className={`bg-[#ff0050] h-[600px] absolute md:relative w-[300px] rounded-50 md:rounded-r-50 md:rounded-l-none flex flex-col border border-r-[2px] border-black ${!showHome ? 'z-40' : 'z-30'} md:z-30`} >
-          <AiOutlineHome className='hidden md:block m-3 absolute hover:cursor-pointer' onClick={showHomeHandler}/>
-          <AiOutlineHome className='mt-3 absolute left-[50%] md:hidden text-center hover:cursor-pointer' onClick={() => setShowHome(true)}/>
+          <div
+            className={`bg-[#ff0050] h-[600px] absolute md:relative w-[300px] rounded-50 md:rounded-r-50 md:rounded-l-none flex flex-col border border-r-[2px] border-black ${
+              !showHome ? "z-40" : "z-30"
+            } md:z-30`}
+          >
+            <AiOutlineHome
+              className="hidden md:block m-3 absolute hover:cursor-pointer"
+              onClick={showHomeHandler}
+            />
+            <AiOutlineHome
+              className="mt-3 absolute left-[50%] md:hidden text-center hover:cursor-pointer"
+              onClick={() => setShowHome(true)}
+            />
 
             {displayCard && (
               <PokemonCard currentPokemon={currentPokemon} showAll={showAll} />

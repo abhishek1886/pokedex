@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import Success from "../assets/success.png";
 import Pending from "../assets/pending.gif";
 import PokemonContext from "../store/pokemon-context";
+import axios from 'axios';
 
 const arr = [false, false, true, false, false, true];
 
@@ -40,9 +41,7 @@ const PokemonOverlay = (props) => {
 
     setTimeout(() => {
       const index = Math.floor(Math.random() * 6);
-      console.log(arr[index], index);
       if (arr[index]) {
-        console.log("caught");
         setCatching(false);
 
         setSuccess(true);
@@ -57,7 +56,7 @@ const PokemonOverlay = (props) => {
     }, 3000);
   };
 
-  const addPokemon = (e) => {
+  const addPokemon = async (e) => {
     e.preventDefault();
 
     if(inputRef.current.value.length === 0) {
@@ -70,10 +69,11 @@ const PokemonOverlay = (props) => {
       nickName: inputRef.current.value,
       id: Math.random().toString()
     }
-    console.log(pokemon);
     pokemonCtx.addUserPokemon(pokemon);
     setInput(false);
     props.onClick();
+    const email = localStorage.getItem('email').replace(/[@.]/g, '');
+    const data = await axios.post(`https://mail-box-client-a8037-default-rtdb.firebaseio.com/poke${email}.json`, pokemon);
   };
 
   return (
@@ -87,7 +87,7 @@ const PokemonOverlay = (props) => {
       <div className="flex justify-center items-center flex-col h-[300px]">
         {!success && !catching && (
           <img
-            width="100%"
+            className="h-full"
             src={`https://www.pkparaiso.com/imagenes/xy/sprites/animados/${props.pokemon.name}.gif`}
           />
         )}
@@ -107,7 +107,7 @@ const PokemonOverlay = (props) => {
         </p>
       )}
       {!success && !catching && (
-        <div className="flex gap-2 items-center mt-3">
+        <div className="flex gap-2 items-center justify-center mt-3">
           <button
             className="px-5 py-2 font-bold text-xl font-serif border-2 border-black rounded-md hover:bg-[#14daff]"
             onClick={catchHandler}
@@ -147,7 +147,6 @@ const PokemonOverlay = (props) => {
 const PokemonModal = (props) => {
   const [failed, setFailed] = useState(false);
 
-  console.log("modal", props.pokemon);
   const position = document.getElementById("backdrop");
   return (
     <Fragment>

@@ -18,12 +18,12 @@ export const AuthContextProvider = (props) => {
     setEmail(token);
     setIsLoggedin(true);
 
-    localStorage.setItem("token");
-    localStorage.setItem("email");
+    localStorage.setItem("email", email);
+    localStorage.setItem("token", token);
   };
 
   const logout = () => {
-    setEmail("");
+    setToken("");
     setEmail("");
     setIsLoggedin(false);
 
@@ -32,11 +32,11 @@ export const AuthContextProvider = (props) => {
   };
 
   const value = {
-    email,
-    token,
-    isLoggedin,
-    login,
-    logout,
+    email: email,
+    token: token,
+    isLoggedIn: isLoggedin,
+    login: login,
+    logout: logout,
   };
 
   return (

@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 
 import axios from "axios";
-import {BsDot} from 'react-icons/bs';
+import { BsDot } from "react-icons/bs";
 import MovesTable from "./MovesTable";
 
 const PokemonCard = (props) => {
@@ -49,15 +49,17 @@ const PokemonCard = (props) => {
     setAbilityDescriptions([]);
     setMoveStats([]);
   }, [id, setAbilityDescriptions, setMoveStats]);
-  console.log(types);
 
   return (
     <div className="h-[550px] mx-5 mt-7 bg-[#f1f5e6] rounded-xl border-black border">
       <div className="text-center mt-3">
         <h1 className="capitalize font-serif text-3xl">{name}</h1>
-        
+
         {types.map((pokemon) => (
-          <span key={pokemon.type.name} className="capitalize px-1 text-sm font-sans">
+          <span
+            key={pokemon.type.name}
+            className="capitalize px-1 text-sm font-sans"
+          >
             {pokemon.type.name}
           </span>
         ))}
@@ -80,17 +82,27 @@ const PokemonCard = (props) => {
           </ul>
         </div>
         <div className="flex justify-center items-center">
-        {nickName && <h3 className="absolute top-0 text-center font-serif font-bolder text-white capitalize text-l">{nickName}</h3>}
-          <img className="w-full p-3" src={images} alt={name} width="100%" />
+          {nickName && (
+            <h3 className="absolute top-0 text-center font-serif font-bolder text-white capitalize text-l">
+              {nickName}
+            </h3>
+          )}
+          <img className="h-full p-3" src={images} alt={name} />
         </div>
-        <div className="absolute bottom-0 left-48 font-bold text-xs font-serif float float-right">ID:{id}</div>
+        <div className="absolute bottom-0 left-48 font-bold text-xs font-serif float float-right">
+          ID:{id}
+        </div>
       </div>
       <div className="mt-0">
         <h2 className="text-center text-lg font-serif">Abilities</h2>
-        {abilities.slice(0,2).map((pokemon, i) => (
-        <p className="inline-block text-xs font-serif " key={i}><BsDot className="inline-block" />
-          <span className="capitalize font-black">{pokemon.ability.name}</span> - {abilityDescriptions[i]}
-        </p>
+        {abilities.slice(0, 2).map((pokemon, i) => (
+          <p className="inline-block text-xs font-serif " key={pokemon.id}>
+            <BsDot className="inline-block" />
+            <span className="capitalize font-black">
+              {pokemon.ability.name}
+            </span>{" "}
+            - {abilityDescriptions[i]}
+          </p>
         ))}
       </div>
       <div className="pb-3 m-2 border-2 border-[#ff8945] rounded-2xl bg-[#faf139]">

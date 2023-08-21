@@ -1,7 +1,6 @@
 import React from "react";
 
 const MovesTable = (props) => {
-  console.log(props);
   return (
     <table className="table m-1 table-auto text-xs w-[96%]">
       <thead className="p-1 border border-[#ff8945]">

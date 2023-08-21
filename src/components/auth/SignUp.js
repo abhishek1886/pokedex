@@ -1,16 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 
-import { useHistory, Link } from 'react-router-dom';
-import AuthContext from "../../store/auth-context";
+import {useHistory, Link} from 'react-router-dom';
 
 const key ='AIzaSyDH9plc7T7h6CQDIKTBp6HCF-nBjgzPDHg';
-const LogIn = () => {
+
+const SignUp = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+    confirmPassword: "",
   });
-  const authCtx = useContext(AuthContext);
-
   const history = useHistory();
 
   const formInputHandler = (e) => {
@@ -26,33 +25,37 @@ const LogIn = () => {
       e.preventDefault();
 
       const inputData = { ...formData, returnSecureToken: true };
-
-      const res = await fetch(
-        `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${key}`,
-        {
-          method: "POST",
-          body: JSON.stringify(inputData),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (res.ok) {
-        const data = await res.json();
-        authCtx.login({ token: data.idToken, email: data.email })
-        history.push("/");
-        setFormData({
-          email: "",
-          password: "",
-        });
+      if (inputData.password !== inputData.confirmPassword) {
+        alert("please set correct password");
       } else {
-        const data = await res.json();
-        let errorMessage = "Something went wrong! Try again.";
-        if (data && data.error && data.error.message) {
-          errorMessage = data.error.message;
+        const res = await fetch(
+          `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${key}`,
+          {
+            method: "POST",
+            body: JSON.stringify(inputData),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (res.ok) {
+          const data = await res.json();
+          history.replace('/login');
+          setFormData({
+            email: "",
+            password: "",
+            confirmPassword: "",
+          });
+        } else {
+          const data = await res.json();
+          let errorMessage = "Something went wrong! Try again."
+          if(data && data.error && data.error.message){
+            errorMessage = data.error.message;
+            
+          }
+          throw new Error(errorMessage);
         }
-        throw new Error(errorMessage);
       }
     } catch (err) {
       alert(err.message);
@@ -60,15 +63,16 @@ const LogIn = () => {
   };
 
   return (
+  
     <div className="flex flex-col mt-20">
-      <div className="grid place-items-center mx-2 my-20 sm:my-auto">
+      <div className="grid place-items-center mx-2 my-5 sm:my-auto">
         <div
           className="w-11/12 p-12 sm:w-8/12 md:w-6/12 lg:w-5/12 2xl:w-4/12 
             px-6 py-10 sm:px-10 sm:py-6 
             bg-[#14daff] rounded-2xl shadow-md lg:shadow-lg"
         >
           <h2 className="text-center font-semibold text-3xl lg:text-4xl text-gray-800">
-            Login
+            Sign Up
           </h2>
 
           <form className="mt-10" onSubmit={submitHandler}>
@@ -113,6 +117,26 @@ const LogIn = () => {
                     focus:text-gray-500 focus:outline-none focus:border-gray-200"
               required
             />
+          
+            <label
+              htmlFor="confirmPassword"
+              className="block mt-2 text-xs font-semibold text-gray-600 uppercase"
+            >
+              Confirm Password
+            </label>
+            <input
+              id="confirmPassword"
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={formInputHandler}
+              placeholder="password"
+              className="block w-full py-3 px-1 mt-2 mb-4
+                    text-gray-800 appearance-none 
+                    border-b-2 border-gray-100
+                    focus:text-gray-500 focus:outline-none focus:border-gray-200"
+              required
+            />
 
             <button
               type="submit"
@@ -120,21 +144,21 @@ const LogIn = () => {
                     font-medium text-white uppercase
                     focus:outline-none hover:bg-gray-700 hover:shadow-none"
             >
-              Login
+              SignUp
             </button>
 
             <div className="sm:flex sm:flex-wrap mt-8 sm:mb-4 text-sm text-center">
-              <Link to='/forgotpassword' className="flex-2 underline">
+              <a href="#" className="flex-2 underline">
                 Forgot password?
-              </Link>
+              </a>
 
               <p className="flex-1 text-gray-500 text-md mx-4 my-1 sm:my-auto">
                 or
               </p>
 
-              <Link to="/signup" className="flex-2 underline">
-                Create an Account
-              </Link>
+              <a href="#" className="flex-2 underline">
+                Login
+              </a>
             </div>
           </form>
         </div>
@@ -143,4 +167,4 @@ const LogIn = () => {
   );
 };
 
-export default LogIn;
+export default SignUp;
