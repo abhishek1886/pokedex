@@ -5,7 +5,7 @@ import {BsDot} from 'react-icons/bs';
 import MovesTable from "./MovesTable";
 
 const PokemonCard = (props) => {
-  const { id, name, abilities, images, stats, types, moves } =
+  const { id, name, abilities, images, stats, types, moves, nickName } =
     props.currentPokemon;
   const [abilityDescriptions, setAbilityDescriptions] = useState([]);
   const [moveStats, setMoveStats] = useState([]);
@@ -55,8 +55,9 @@ const PokemonCard = (props) => {
     <div className="h-[550px] mx-5 mt-7 bg-[#f1f5e6] rounded-xl border-black border">
       <div className="text-center mt-3">
         <h1 className="capitalize font-serif text-3xl">{name}</h1>
+        
         {types.map((pokemon) => (
-          <span key={pokemon.type.name} className="capitalize px-1 font-sans">
+          <span key={pokemon.type.name} className="capitalize px-1 text-sm font-sans">
             {pokemon.type.name}
           </span>
         ))}
@@ -79,6 +80,7 @@ const PokemonCard = (props) => {
           </ul>
         </div>
         <div className="flex justify-center items-center">
+        {nickName && <h3 className="absolute top-0 text-center font-serif font-bolder text-white capitalize text-l">{nickName}</h3>}
           <img className="w-full p-3" src={images} alt={name} width="100%" />
         </div>
         <div className="absolute bottom-0 left-48 font-bold text-xs font-serif float float-right">ID:{id}</div>
@@ -91,8 +93,8 @@ const PokemonCard = (props) => {
         </p>
         ))}
       </div>
-      <div className="h-[180px] m-2 border-2 border-[#ff8945] rounded-2xl bg-[#faf139]">
-        <p className="font-serif text-xl text-center pt-2 mt-2">Moves</p>
+      <div className="pb-3 m-2 border-2 border-[#ff8945] rounded-2xl bg-[#faf139]">
+        <p className="font-serif text-xl text-center">Moves</p>
         <MovesTable movesStats={moveStats} />
       </div>
     </div>

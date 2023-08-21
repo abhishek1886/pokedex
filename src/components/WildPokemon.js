@@ -9,7 +9,6 @@ const WildPokemon = () => {
   const [display, setDisplay] = useState(false);
   const [pokemon, setPokemon] = useState({});
   const [modalDisplay, setModalDisplay] = useState(false);
-  console.log("wildPokemon");
 
   useEffect(() => {
     const delay = Math.floor(Math.random() * 20) + 10;
@@ -20,26 +19,20 @@ const WildPokemon = () => {
         setDisplay(false);
       }, 5000);
     }, delay * 1000);
-    console.log(timeoutID);
 
     return () => {
-      console.log(timeoutID);
       clearInterval(timeoutID);
     };
   }, []);
 
   const grassClickHandler = async () => {
     setDisplay(false);
-    console.log("grass clicked");
     const index = Math.floor(
       Math.random() * pokemonCtx.globalPokemonList.length
     );
-    console.log(index);
     const pokemon = pokemonCtx.globalPokemonList[index];
-    console.log(pokemon);
 
     const data = await axios.get(pokemon.url);
-    console.log(data);
     setPokemon(pokemon);
     setModalDisplay(true);
   };
@@ -53,10 +46,13 @@ const WildPokemon = () => {
     <Fragment>
       {display && (
         <div
-          className="fixed bottom-0 right-0 hover:cursor-pointer "
+          className="fixed bottom-0 w-[150px] right-0 hover:cursor-pointer group"
           onClick={grassClickHandler}
           style={{ zIndex: 150 }}
         >
+          <p className="hidden group-hover:block text-xs border-2 border-[black] p-2 m-3 rounded-2xl">
+            Something is hiding behind this bush click to see what is it!
+          </p>
           <img
             src="https://i.pinimg.com/originals/6b/2c/8e/6b2c8e8c2e08ee9604f002c6da595939.gif"
             width="150px"

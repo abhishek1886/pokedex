@@ -1,5 +1,6 @@
 import React, { Fragment, useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { AiOutlineHome } from 'react-icons/ai';
 
 import GenerationButtons from "./GenerationButtons";
 import PokemonButton from "./PokemonButton";
@@ -7,11 +8,15 @@ import Welcome from "./Welcome";
 import PokemonCard from "./PokemonCard";
 import { generations } from "../helpers/api";
 import PokemonContext from "../store/pokemon-context";
+import PokemonList from "./PokemonList";
+import FullPokemonList from "./FullPokemonList";
 
 const Pokedex = () => {
   const [pokemons, setPokemons] = useState([]);
   const [displayCard, setDisplayCard] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [showAll, setShowAll] = useState(false);
+  const [showHome, setShowHome] = useState(true);
   const [currentPokemon, setcurrentPokemon] = useState({
     id: null,
     name: null,
@@ -38,7 +43,8 @@ const Pokedex = () => {
   };
 
   const renderCard = async (pokemon) => {
-    console.log(pokemon);
+    setShowAll(false);
+    setShowHome(false);
     const res = await axios.get(
       `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
     );
@@ -52,44 +58,59 @@ const Pokedex = () => {
       images: `https://www.pkparaiso.com/imagenes/xy/sprites/animados/${pokemon.name}.gif`,
       stats: data.stats,
       types: data.types,
+      nickName: pokemon.nickName,
     });
     setDisplayCard(true);
+    
   };
 
   useEffect(() => {
     const getPokemonData = async () => {
       const response = await axios.get(generations["gen1"]);
       setPokemons(response.data.results);
-      pokemonCtx.addGlobalPokemons(response.data.results)
+      pokemonCtx.addGlobalPokemons(response.data.results);
     };
     getPokemonData();
   }, []);
 
+  const showHomeHandler = () => {
+    setShowAll(false);
+    setDisplayCard(false);
+  }
+
+  const showAllHandler = () => {
+    setShowAll(true);
+    setShowHome(false);
+    setDisplayCard(false)
+  }
+
   return (
     <Fragment>
       <div className="relative">
-        <div className="flex flex-col md:flex-row items-center justify-center">
+        <div className="flex flex-row items-center justify-center">
           <div
-            className="bg-[#ff0050] h-[600px] w-[300px] rounded-l-[50px] flex flex-col border border-r-[2px] border-black"
-            style={{ boxShadow: "5px 0 10px -2px #4f045a", zIndex: 100 }}
+            className={`bg-[#ff0050] h-[600px] w-[300px] rounded-50 md:rounded-l-50 md:rounded-r-none flex flex-col border border-r-[2px] border-black ${showHome ? 'z-40' : 'z-30'} md:z-40`}
+            style={{ boxShadow: "5px 0 10px -2px #4f045a" }}
           >
             <GenerationButtons onClick={getPokemon} />
             <div
-              className="h-[60px] border-b-2 border-black text-center font-bold text-3xl  text-white pt-2"
+              className="h-[60px] border-b-2 border-black font-serif text-center font-bold text-3xl  text-white pt-2"
               style={{ boxShadow: "5px 10px 10px -5px #4f045a" }}
             >
-              Pokedex
+              PokéDex
             </div>
             <div
               className="border-2 border-black border-t-0 h-[500px] mx-4 shadow-inner"
               style={{ boxShadow: "inset 0 0 7px #4f045a" }}
+              
             >
-              <div className="h-[300px] mx-[15px] my-[30px] bg-[#f1f5e6] border border-black rounded-xl">
+              <div className="h-[300px] mx-[15px] mt-[30px] bg-[#f1f5e6] border border-black rounded-xl">
                 <div className="h-10 text-center mt-3 ">
                   <input
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="bg-[#f1f5e6] border-b-2 border-black"
+                    className="bg-[#f1f5e6] relative border-b-2 border-black"
                     placeholder="Search.."
+                    style={{zIndex: 170}}
                   />
                 </div>
                 <div
@@ -97,6 +118,7 @@ const Pokedex = () => {
                   style={{
                     background: `repeating-linear-gradient(45deg, #14daff, #14daff 60px, #14eaff 60px, #14eaff 120px)`,
                   }}
+
                 >
                   {filteredPokemon(pokemons, searchQuery).length !== 0 ? (
                     filteredPokemon(pokemons, searchQuery).map((pokemon) => (
@@ -112,18 +134,21 @@ const Pokedex = () => {
                   )}
                 </div>
               </div>
+              <PokemonList onClick={renderCard} onShowAll={showAllHandler} />
             </div>
           </div>
-          <div className="bg-[#ff0050] h-[600px] relative w-[300px] rounded-r-[50px] flex flex-col border border-r-[2px] border-black">
-            {displayCard ? (
-              <PokemonCard currentPokemon={currentPokemon} />
-            ) : (
-              <Welcome />
+          <div className={`bg-[#ff0050] h-[600px] absolute md:relative w-[300px] rounded-50 md:rounded-r-50 md:rounded-l-none flex flex-col border border-r-[2px] border-black ${!showHome ? 'z-40' : 'z-30'} md:z-30`} >
+          <AiOutlineHome className='hidden md:block m-3 absolute hover:cursor-pointer' onClick={showHomeHandler}/>
+          <AiOutlineHome className='mt-3 absolute left-[50%] md:hidden text-center hover:cursor-pointer' onClick={() => setShowHome(true)}/>
+
+            {displayCard && (
+              <PokemonCard currentPokemon={currentPokemon} showAll={showAll} />
             )}
+            {!displayCard && !showAll && <Welcome />}
+            {showAll && <FullPokemonList onClick={renderCard} />}
           </div>
         </div>
       </div>
-      
     </Fragment>
   );
 };
