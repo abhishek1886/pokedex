@@ -10,7 +10,6 @@ const WildPokemon = () => {
   const [display, setDisplay] = useState(false);
   const [pokemon, setPokemon] = useState({});
   const [modalDisplay, setModalDisplay] = useState(false);
-  const [timeoutID, setTimeOutID] = useState('')
   const authCtx = useContext(AuthContext);
   const isLoggedIn = authCtx.isLoggedIn;
   useEffect(() => {
@@ -36,7 +35,6 @@ const WildPokemon = () => {
     );
     const pokemon = pokemonCtx.globalPokemonList[index];
 
-    const data = await axios.get(pokemon.url);
     setPokemon(pokemon);
     setModalDisplay(true);
   };
@@ -60,6 +58,7 @@ const WildPokemon = () => {
           <img
             src="https://i.pinimg.com/originals/6b/2c/8e/6b2c8e8c2e08ee9604f002c6da595939.gif"
             width="150px"
+            alt="moving grass"
           />
         </div>
       )}

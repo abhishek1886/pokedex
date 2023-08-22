@@ -73,7 +73,7 @@ const PokemonOverlay = (props) => {
     setInput(false);
     props.onClick();
     const email = localStorage.getItem('email').replace(/[@.]/g, '');
-    const data = await axios.post(`https://mail-box-client-a8037-default-rtdb.firebaseio.com/poke${email}.json`, pokemon);
+    await axios.post(`https://mail-box-client-a8037-default-rtdb.firebaseio.com/poke${email}.json`, pokemon);
   };
 
   return (
@@ -89,11 +89,12 @@ const PokemonOverlay = (props) => {
           <img
             className="h-full"
             src={`https://www.pkparaiso.com/imagenes/xy/sprites/animados/${props.pokemon.name}.gif`}
+            alt={props.pokemon.name}
           />
         )}
         <div className="h-[100px] flex items-end flex-col justify-center">
-          {success && <img src={Success} width="150px" />}
-          {catching && <img width="100px" src={Pending} />}
+          {success && <img src={Success} alt="successfully caught" width="150px" />}
+          {catching && <img width="100px" alt="waiting" src={Pending} />}
           {catching && (
             <p className=" relative h-[20px] text-center text-xl font-serif font-semibold">
               Catching..

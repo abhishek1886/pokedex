@@ -64,7 +64,7 @@ const SignUp = () => {
 
   return (
   
-    <div className="flex flex-col mt-20">
+    <div className="flex flex-col mt-10">
       <div className="grid place-items-center mx-2 my-5 sm:my-auto">
         <div
           className="w-11/12 p-12 sm:w-8/12 md:w-6/12 lg:w-5/12 2xl:w-4/12 
@@ -75,7 +75,7 @@ const SignUp = () => {
             Sign Up
           </h2>
 
-          <form className="mt-10" onSubmit={submitHandler}>
+          <form className="mt-5" onSubmit={submitHandler}>
             <label
               htmlFor="email"
               className="block text-xs font-semibold text-gray-600 uppercase"

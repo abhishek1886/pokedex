@@ -17,7 +17,7 @@ function App() {
 
   if (token && email) {
     authCtx.login({ email, token });
-  }}, [])
+  }}, [authCtx])
 
   return (
     <div

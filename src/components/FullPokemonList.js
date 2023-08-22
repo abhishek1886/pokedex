@@ -12,7 +12,7 @@ const FullPokemonList = (props) => {
   const deleteHandler = async (id) => {
     pokemocCtx.removeUserPokemon(id);
     const email = localStorage.getItem('email').replace(/[@.]/g, '');
-    const res = await axios.delete(`https://mail-box-client-a8037-default-rtdb.firebaseio.com/poke${email}/${id}.json`)
+    await axios.delete(`https://mail-box-client-a8037-default-rtdb.firebaseio.com/poke${email}/${id}.json`)
   }
 
   let fullList = [];

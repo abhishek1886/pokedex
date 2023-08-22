@@ -34,7 +34,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="flex flex-col mt-20">
+    <div className="flex flex-col mt-10">
       <div className="grid place-items-center mx-2 my-20 sm:my-auto">
         <div
           className="w-11/12 p-12 sm:w-8/12 md:w-6/12 lg:w-5/12 2xl:w-4/12 

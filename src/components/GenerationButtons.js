@@ -5,7 +5,7 @@ const GenerationButtons = (props) => {
     props.onClick(e.target.id)
   }
   return (
-    <div className="absolute ml-[-210px]" style={{zIndex: 1}}>
+    <div className="absolute ml-[-208px]" style={{zIndex: 1}}>
       <div className="mt-[220px] -rotate-90">
         <div className="flex gap-1 flex-row-reverse">
           <button

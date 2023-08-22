@@ -11,6 +11,7 @@ import PokemonContext from "../store/pokemon-context";
 import PokemonList from "./PokemonList";
 import FullPokemonList from "./FullPokemonList";
 import AuthContext from "../store/auth-context";
+import PokedexLogo from '../assets/pokedex.png'
 
 const Pokedex = () => {
   const [pokemons, setPokemons] = useState([]);
@@ -111,10 +112,10 @@ const Pokedex = () => {
           >
             <GenerationButtons onClick={getPokemon} />
             <div
-              className="h-[60px] border-b-2 border-black font-serif text-center font-bold text-3xl  text-white pt-2"
+              className="h-[60px] border-b-2 border-black flex items-center justify-center font-serif text-center font-bold text-3xl  text-white p-1"
               style={{ boxShadow: "5px 10px 10px -5px #4f045a" }}
             >
-              PokéDex
+              <img src={PokedexLogo} alt="pokedex" className="text-center h-full" />
             </div>
             <div
               className="border-2 border-black border-t-0 h-[500px] mx-4 shadow-inner"
