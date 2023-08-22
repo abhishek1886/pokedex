@@ -1,6 +1,6 @@
 import React, { Fragment, useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { AiOutlineHome } from "react-icons/ai";
+import { AiOutlineHome, AiOutlineArrowRight } from "react-icons/ai";
 
 import GenerationButtons from "./GenerationButtons";
 import PokemonButton from "./PokemonButton";
@@ -93,6 +93,7 @@ const Pokedex = () => {
 
   const showHomeHandler = () => {
     setShowAll(false);
+    setShowHome(false)
     setDisplayCard(false);
   };
 
@@ -114,10 +115,11 @@ const Pokedex = () => {
           >
             <GenerationButtons onClick={getPokemon} />
             <div
-              className="h-[60px] border-b-2 border-black flex items-center justify-center font-serif text-center font-bold text-3xl  text-white p-1"
+              className="h-[60px] border-b-2 border-black flex relative items-center justify-center font-serif text-center font-bold text-3xl  text-white p-1"
               style={{ boxShadow: "5px 10px 10px -5px #4f045a" }}
             >
               <img src={PokedexLogo} alt="pokedex" className="text-center h-full" />
+              <AiOutlineArrowRight className="absolute right-5 md:hidden text-lg" onClick={showHomeHandler}/>
             </div>
             <div
               className="border-2 border-black border-t-0 h-[500px] mx-4 shadow-inner"
