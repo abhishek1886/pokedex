@@ -33,6 +33,8 @@ const Pokedex = () => {
   const isLoggedIn = authCtx.isLoggedIn;
 
   const getPokemon = async (gen) => {
+    setShowHome(true);
+    setDisplayCard(false);
     const response = await axios.get(generations[gen]);
     setPokemons(response.data.results);
     pokemonCtx.addGlobalPokemons(response.data.results);
