@@ -6,8 +6,8 @@ import AuthContext from "../../store/auth-context";
 const key ='AIzaSyDH9plc7T7h6CQDIKTBp6HCF-nBjgzPDHg';
 const LogIn = () => {
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: "demoaccount@demo.com",
+    password: "123456789",
   });
   const authCtx = useContext(AuthContext);
 
@@ -67,14 +67,14 @@ const LogIn = () => {
             px-6 py-10 sm:px-10 sm:py-6 
             bg-[#14daff] rounded-2xl shadow-md lg:shadow-lg"
         >
-          <h2 className="text-center font-semibold text-3xl lg:text-4xl text-gray-800">
+          <h2 className="text-center font-semibold font-roboto text-3xl lg:text-4xl text-gray-800">
             Login
           </h2>
 
           <form className="mt-5" onSubmit={submitHandler}>
             <label
               htmlFor="email"
-              className="block text-xs font-semibold text-gray-600 uppercase"
+              className="block text-xs font-semibold font-roboto text-gray-600 uppercase"
             >
               E-mail
             </label>
@@ -95,7 +95,7 @@ const LogIn = () => {
 
             <label
               htmlFor="password"
-              className="block mt-2 text-xs font-semibold text-gray-600 uppercase"
+              className="block mt-2 font-roboto text-xs font-semibold text-gray-600 uppercase"
             >
               Password
             </label>

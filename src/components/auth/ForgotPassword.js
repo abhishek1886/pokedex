@@ -41,14 +41,14 @@ const ForgotPassword = () => {
             px-6 py-10 sm:px-10 sm:py-6 
             bg-[#14daff] rounded-2xl shadow-md lg:shadow-lg"
         >
-          <h2 className="text-center font-semibold text-3xl lg:text-4xl text-gray-800">
+          <h2 className="text-center font-semibold font-roboto text-3xl lg:text-4xl text-gray-800">
             Forgot Password
           </h2>
 
           <form className="mt-5" onSubmit={submitHandler}>
             <label
               htmlFor="email"
-              className="block text-xs font-semibold text-gray-600 uppercase"
+              className="block text-xs font-semibold font-roboto text-gray-600 uppercase"
             >
               E-mail
             </label>
