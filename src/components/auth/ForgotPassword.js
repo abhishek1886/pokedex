@@ -41,7 +41,7 @@ const ForgotPassword = () => {
             px-6 py-10 sm:px-10 sm:py-6 
             bg-[#14daff] rounded-2xl shadow-md lg:shadow-lg"
         >
-          <h2 className="text-center font-semibold font-roboto text-3xl lg:text-4xl text-gray-800">
+          <h2 className="text-center font-semibold font-robotog text-3xl lg:text-4xl text-gray-800">
             Forgot Password
           </h2>
 

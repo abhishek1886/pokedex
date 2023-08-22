@@ -2,14 +2,18 @@ import React, { useContext } from "react";
 
 import { useHistory } from 'react-router-dom';
 import AuthContext from "../store/auth-context";
+import PokemonContext from "../store/pokemon-context";
 
 const Header = () => {
   const authCtx = useContext(AuthContext);
+  const pokemonCtx = useContext(PokemonContext);
   const history = useHistory();
 
   const buttonClickHandler = () => {
     if(authCtx.isLoggedIn) {
       authCtx.logout();
+      pokemonCtx.removeUserPokemon('all');
+
     } else {
       history.push('/login');
     }

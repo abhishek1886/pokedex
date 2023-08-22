@@ -25,6 +25,7 @@ export const PokemonContextProvider = (props) => {
 
   const removeUserPokemon = (id) => {
     if (id === "all") {
+      console.log('logout');
       setUserPokemonList([]);
     } else {
       const updatedList = userPokemonList.filter(
@@ -32,6 +33,7 @@ export const PokemonContextProvider = (props) => {
       );
       setUserPokemonList(updatedList);
     }
+    console.log('outer');
   };
 
   const value = {
