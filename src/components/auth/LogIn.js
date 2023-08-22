@@ -117,7 +117,7 @@ const LogIn = () => {
             <button
               type="submit"
               className="w-full py-3 mt-10 bg-gray-800 rounded-lg
-                    font-medium text-white uppercase
+                    font-medium text-white uppercase font-roboto
                     focus:outline-none hover:bg-gray-700 hover:shadow-none"
             >
               Login

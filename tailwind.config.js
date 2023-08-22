@@ -4,7 +4,10 @@ module.exports = {
   theme: {
     extend: {
       borderRadius: {
-        '50': '50px'
+        50: "50px",
+      },
+      fontFamily: {
+        roboto: 'roboto'
       }
     },
   },
