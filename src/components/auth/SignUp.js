@@ -71,14 +71,14 @@ const SignUp = () => {
             px-6 py-10 sm:px-10 sm:py-6 
             bg-[#14daff] rounded-2xl shadow-md lg:shadow-lg"
         >
-          <h2 className="text-center font-semibold text-3xl lg:text-4xl text-gray-800">
+          <h2 className="text-center font-semibold font-roboto text-3xl lg:text-4xl text-gray-800">
             Sign Up
           </h2>
 
           <form className="mt-5" onSubmit={submitHandler}>
             <label
               htmlFor="email"
-              className="block text-xs font-semibold text-gray-600 uppercase"
+              className="block text-xs font-semibold font-roboto text-gray-600 uppercase"
             >
               E-mail
             </label>
@@ -90,7 +90,7 @@ const SignUp = () => {
               onChange={formInputHandler}
               placeholder="e-mail address"
               autoComplete="email"
-              className="block w-full py-3 px-1 mt-2 
+              className="block w-full py-3 px-1 rounded-lg mt-2 
                     text-gray-800 appearance-none 
                     border-b-2 border-gray-100
                     focus:text-gray-500 focus:outline-none focus:border-gray-200"
@@ -99,7 +99,7 @@ const SignUp = () => {
 
             <label
               htmlFor="password"
-              className="block mt-2 text-xs font-semibold text-gray-600 uppercase"
+              className="block mt-2 font-roboto text-xs font-semibold text-gray-600 uppercase"
             >
               Password
             </label>
@@ -111,7 +111,7 @@ const SignUp = () => {
               onChange={formInputHandler}
               placeholder="password"
               autoComplete="current-password"
-              className="block w-full py-3 px-1 mt-2 mb-4
+              className="block w-full rounded-lg py-3 px-1 mt-2 mb-4
                     text-gray-800 appearance-none 
                     border-b-2 border-gray-100
                     focus:text-gray-500 focus:outline-none focus:border-gray-200"
@@ -120,7 +120,7 @@ const SignUp = () => {
           
             <label
               htmlFor="confirmPassword"
-              className="block mt-2 text-xs font-semibold text-gray-600 uppercase"
+              className="block mt-2 text-xs font-roboto font-semibold text-gray-600 uppercase"
             >
               Confirm Password
             </label>
@@ -131,7 +131,7 @@ const SignUp = () => {
               value={formData.confirmPassword}
               onChange={formInputHandler}
               placeholder="confirm password"
-              className="block w-full py-3 px-1 mt-2 mb-4
+              className="block w-full rounded-lg py-3 px-1 mt-2 mb-4
                     text-gray-800 appearance-none 
                     border-b-2 border-gray-100
                     focus:text-gray-500 focus:outline-none focus:border-gray-200"
@@ -140,7 +140,7 @@ const SignUp = () => {
 
             <button
               type="submit"
-              className="w-full py-3 mt-10 bg-gray-800 rounded-sm
+              className="w-full rounded-lg py-3 mt-10 bg-gray-800
                     font-medium text-white uppercase
                     focus:outline-none hover:bg-gray-700 hover:shadow-none"
             >

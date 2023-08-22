@@ -86,7 +86,7 @@ const LogIn = () => {
               onChange={formInputHandler}
               placeholder="e-mail address"
               autoComplete="email"
-              className="block w-full py-3 px-1 mt-2 
+              className="block w-full rounded-lg py-3 px-1 mt-2 
                     text-gray-800 appearance-none 
                     border-b-2 border-gray-100
                     focus:text-gray-500 focus:outline-none focus:border-gray-200"
@@ -107,7 +107,7 @@ const LogIn = () => {
               onChange={formInputHandler}
               placeholder="password"
               autoComplete="current-password"
-              className="block w-full py-3 px-1 mt-2 mb-4
+              className="block w-full rounded-lg py-3 px-1 mt-2 mb-4
                     text-gray-800 appearance-none 
                     border-b-2 border-gray-100
                     focus:text-gray-500 focus:outline-none focus:border-gray-200"
@@ -116,7 +116,7 @@ const LogIn = () => {
 
             <button
               type="submit"
-              className="w-full py-3 mt-10 bg-gray-800 rounded-sm
+              className="w-full py-3 mt-10 bg-gray-800 rounded-lg
                     font-medium text-white uppercase
                     focus:outline-none hover:bg-gray-700 hover:shadow-none"
             >
