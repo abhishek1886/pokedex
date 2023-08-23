@@ -9,7 +9,7 @@ const PokemonList = (props) => {
 
   let pokemonList = [];
 
-  if (pokemonCtx.userPokemonList.length > 0 ) {
+  if (pokemonCtx.userPokemonList.length > 0) {
     pokemonList = pokemonCtx.userPokemonList.slice(0, 8).map((pokemon) => (
       <li
         className="w-[50px] flex items-center group flex-col justify-center h-[50px] border border-[#faf139]"
@@ -27,35 +27,30 @@ const PokemonList = (props) => {
           src={`https://www.pkparaiso.com/imagenes/xy/sprites/animados/${pokemon.name}.gif`}
           alt={pokemon.name}
         />
-        
       </li>
     ));
-    if(!authCtx.isLoggedIn){
+    if (!authCtx.isLoggedIn) {
       pokemonList = [];
     }
   }
 
   return (
-    <div className="">
-      <p className="text-white text-l font-bold font-serif text-center my-2">
+    <div className="relative">
+      <p className="text-white text-l font-bold font-serif text-center mt-2 mb-1">
         Your Pokemons!
       </p>
-      <div className="h-[115px] border relative border-black rounded-xl mx-2">
+      <div className="h-[115px] border border-black rounded-xl mx-2">
         <ul className=" grid grid-cols-4 px-2 py-1 gap-1">
           {pokemonList.length > 0 && pokemonList}
-          {authCtx.isLoggedIn && <button
-            className="text-xs absolute bottom-0 bg-[#14daff] rounded-md rounded-ee-lg px-2 right-0"
-            onClick={() => props.onShowAll()}
-          >
-            Show all
-          </button>}
         </ul>
-        {authCtx.isLoggedIn && pokemonList.length === 0 &&  (
+        {authCtx.isLoggedIn && pokemonList.length === 0 && (
           <p className="p-2 text-xs">
             You dont have any pokemons in your inventory.
           </p>
         )}
-        {!authCtx.isLoggedIn && <p className="text-center mt-7">You have not logged in yet.</p>}
+        {!authCtx.isLoggedIn && (
+          <p className="text-center mt-7">You have not logged in yet.</p>
+        )}
       </div>
     </div>
   );

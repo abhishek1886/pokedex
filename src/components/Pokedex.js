@@ -11,7 +11,7 @@ import PokemonContext from "../store/pokemon-context";
 import PokemonList from "./PokemonList";
 import FullPokemonList from "./FullPokemonList";
 import AuthContext from "../store/auth-context";
-import PokedexLogo from '../assets/pokedex.png'
+import PokedexLogo from "../assets/pokedex.png";
 
 const Pokedex = () => {
   const [pokemons, setPokemons] = useState([]);
@@ -74,18 +74,19 @@ const Pokedex = () => {
       setPokemons(response.data.results);
       pokemonCtx.addGlobalPokemons(response.data.results);
       if (isLoggedIn) {
-        const email = localStorage.getItem('email').replace(/[@.]/g, '');
+        const email = localStorage.getItem("email").replace(/[@.]/g, "");
 
-        const res = await axios.get(`https://mail-box-client-a8037-default-rtdb.firebaseio.com/poke${email}.json`);
-        if(res.data){
+        const res = await axios.get(
+          `https://mail-box-client-a8037-default-rtdb.firebaseio.com/poke${email}.json`
+        );
+        if (res.data) {
           Object.entries(res.data).map(([key, value]) => {
-          pokemonCtx.addUserPokemon({
-            ...value,
-            _id: key
-          })
-        })
+            pokemonCtx.addUserPokemon({
+              ...value,
+              _id: key,
+            });
+          });
         }
-        
       }
     };
     getPokemonData();
@@ -93,7 +94,7 @@ const Pokedex = () => {
 
   const showHomeHandler = () => {
     setShowAll(false);
-    setShowHome(false)
+    setShowHome(false);
     setDisplayCard(false);
   };
 
@@ -108,7 +109,7 @@ const Pokedex = () => {
       <div className="relative">
         <div className="flex flex-row items-center justify-center">
           <div
-            className={`bg-[#ff0050] h-[600px] w-[300px] rounded-50 md:rounded-l-50 md:rounded-r-none flex flex-col border border-r-[2px] border-black ${
+            className={`bg-[#ff0050] h-[600px] w-[300px] relative rounded-50 md:rounded-l-50 md:rounded-r-none flex flex-col border border-r-[2px] border-black ${
               showHome ? "z-40" : "z-30"
             } md:z-40`}
             style={{ boxShadow: "5px 0 10px -2px #4f045a" }}
@@ -118,8 +119,15 @@ const Pokedex = () => {
               className="h-[60px] border-b-2 border-black flex relative items-center justify-center font-serif text-center font-bold text-3xl  text-white p-1"
               style={{ boxShadow: "5px 10px 10px -5px #4f045a" }}
             >
-              <img src={PokedexLogo} alt="pokedex" className="text-center h-full" />
-              <AiOutlineArrowRight className="absolute right-5 md:hidden text-lg" onClick={showHomeHandler}/>
+              <img
+                src={PokedexLogo}
+                alt="pokedex"
+                className="text-center h-full"
+              />
+              <AiOutlineArrowRight
+                className="absolute right-5 md:hidden text-lg"
+                onClick={showHomeHandler}
+              />
             </div>
             <div
               className="border-2 border-black border-t-0 h-[500px] mx-4 shadow-inner"
@@ -151,10 +159,18 @@ const Pokedex = () => {
                     ))
                   ) : (
                     <p>No Results.</p>
-                  )}
+                  )}{authCtx.isLoggedIn && (
+                <button
+                  className="text-[10px] absolute bottom-10 px-1 hover:bg-[#14daff] rounded-sm py-0 right-[50%] translate-x-2/4"
+                  onClick={showAllHandler}
+                >
+                  Show all
+                </button>
+              )}
                 </div>
               </div>
               <PokemonList onClick={renderCard} onShowAll={showAllHandler} />
+              
             </div>
           </div>
           <div

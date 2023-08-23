@@ -88,7 +88,7 @@ const PokemonCard = (props) => {
       <div className="mt-0">
         <h2 className="text-center text-lg font-serif">Abilities</h2>
         {abilities.slice(0,2).map((pokemon, i) => (
-        <p className="inline-block text-xs font-serif " key={pokemon.id}><BsDot className="inline-block" />
+        <p className="inline-block text-xs px-2 font-serif " key={pokemon.id}><BsDot className="inline-block" />
           <span className="capitalize font-black">{pokemon.ability.name}</span> - {abilityDescriptions[i]}
         </p>
         ))}

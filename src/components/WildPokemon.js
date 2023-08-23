@@ -52,8 +52,8 @@ const WildPokemon = () => {
           onClick={grassClickHandler}
           style={{ zIndex: 150 }}
         >
-          <p className="hidden group-hover:block text-xs border-2 border-[black] p-2 m-3 rounded-2xl">
-            Something is hiding behind this bush click to see what is it!
+          <p className="hidden group-hover:block text-xs border-2 border-[black] p-1 m-3 rounded-xl">
+            Something is hiding behind this bush click to see what it is!
           </p>
           <img
             src="https://i.pinimg.com/originals/6b/2c/8e/6b2c8e8c2e08ee9604f002c6da595939.gif"

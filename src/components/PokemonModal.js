@@ -116,7 +116,7 @@ const PokemonOverlay = (props) => {
             Catch!
           </button>
           <button
-            className="px-5 py-2 font-bold text-xl font-serif border-2 border-black rounded-md hover:bg-[#14daff]"
+            className="px-5 py-2 font-bold text-xl font-serif border-2 border-black rounded-md hover:bg-[#ff0f0f]"
             onClick={() => props.onClick()}
           >
             Ignore
